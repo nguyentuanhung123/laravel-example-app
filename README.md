@@ -158,6 +158,61 @@ là :
 <?php echo slot ?>
 ```
 
+# Logic được rút ra trong bài này
+- Khi ta chạy vào đường dẫn "/", thì nó sẽ chạy file home.blade.php
+- Các thẻ trong home.blade.php được bọc trong <x-layout>...</x-layout> nên file layout.blade.php sẽ được chạy trước
+- Khi đến đoạn {{ slot }} trong file layout.blade.php thì những thẻ trong file home.blade.php mới được chạy
+
+# Cách nhớ dễ trong bài này
+
+- Trong file .blade.php dùng chung: Giống nhau thì giữ nguyên khác biệt chỗ nào thì thay bằng slot
+- Trong file .blade.php dùng riêng: Bọc nó trong <x-...></x-...> và viết ra chỗ khác biệt
+- Trong file dùng chung như layout.blade.php bắt buộc phải có {{ slot }} để hiện thứ khác biệt
+- File chung có slot, file riêng thì không
+
+# Để có thể lấy các attribite trong thẻ <x-... style="" href></x-...> thì ta sử dụng attribute
+
+- Ví dụ: 
+
+```bladehtml
+<x-nav-link href="/">Home</x-nav-link>
+```
+
+```bladehtml
+<a {{ $attribute }}>{{ $slot }}</a>
+```
+
+## Day 4: Make a Pretty Layout Using TailwindCSS
+
+- B1: Copy và paste 1 ui của tailwinđ như navbar vào layout.blade.php
+- B2: Add script để kết nối với tailwind css
+
+```bladehtml
+<script src="https://cdn.tailwindcss.com"></script>
+```
+
+# Ta muốn khi chuyển đổi trang thì heading ở file chung như layout.blade.php cũng sẽ được đổi
+
+-  Ở file layout.blade.php ta có:
+
+```bladehtml
+<header class="bg-white shadow">
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ $heading }}</h1>
+    </div>
+</header>
+```
+
+- Th ở file riêng để có thể sử dụng heading ta phải viết là
+
+```bladehtml
+<x-layout>
+    <x-slot:heading>
+        About Page
+    </x-slot:heading>
+    <h1>Hello from the about page</h1>
+</x-layout>
+```
 
 
 
