@@ -67,14 +67,14 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Học Laravel
 
-# Day 1: Hello, Laravel
+## Day 1: Hello, Laravel
 - B1: Tải Laravel Herd
 - B2: Mở terminal, chạy lệnh Laravel new example-app
 - B3: Chọn No starter ket -> Pest -> no
 - B4: Chọn SQLite
 - B5: Mở trình duyệt và paste example-app.test
 
-# Day 2: Your First Route and View
+## Day 2: Your First Route and View
 - Mở Project đã tạo trên phpstorm bang cách mở Terminal của project đó và chạy phpstorm .
 - Câu lệnh mới sẽ học sau: php artisan serve
 - Phân tích cách chạy và sửa trang homepage
@@ -108,7 +108,8 @@ Route::get('/about', function () {
 - Lý do là bởi Hàm ẩn danh trả về một mảng với một cặp khóa-giá trị. Ở đây, khóa là 'foo' và giá trị là 'bar'.
   Laravel tự động chuyển đổi mảng này thành định dạng JSON khi trả về HTTP response.
 
-# Day 3: Create a Layout File Using Laravel Components
+## Day 3: Create a Layout File Using Laravel Components
+
 - Thay đổi file welcome.blade.php thành home.php:
 - B1: chuột phải -> Reflactor -> Do Reflactor
 - B2: Sửa lại đường dẫn mặc định ban đầu trong web.php thành
@@ -117,6 +118,44 @@ Route::get('/about', function () {
 Route::get('/', function () {
     return view('home');
 });
+```
+
+- Thay đổi tất cả các file chỉ có .php thành .blade.php. Trong Laravel, các tệp view được khuyến khích sử dụng 
+đuôi tệp .blade.php thay vì chỉ .php vì chúng sử dụng Blade, engine template của Laravel. 
+Blade được biên dịch thành mã PHP thuần, nên hiệu suất khi sử dụng Blade và các tệp .blade.php là rất tốt. 
+Laravel sẽ biên dịch các tệp Blade thành các tệp PHP thuần và lưu trữ chúng trong bộ nhớ cache, giúp tăng hiệu suất ứng dụng.
+
+
+- Tạo 1 component dùng chung như Navbar để chuyển hướng trang 
+- B1: Tạo file layout.blade.php trong folder Components (folder Components nằm trong folder views)
+- B2: Copy thẻ html ban đầu trong home.blade.php và paste sang layout.blade.php
+- B3: Xóa thẻ h1 ban đầu thay bằng thẻ nav và {{ slots }}
+
+```bladehtml
+<body>
+     <nav>
+         <a href="/">Home</a>
+         <a href="/about">About</a>
+         <a href="/contact">Contact</a>
+     </nav>
+
+     {{ $slot }}
+</body>
+```
+
+- B4: Vào các file .blade.php trong view và xóa hết các thẻ html và chỉ giữ lại các thẻ cần thiết và bọc nó trong <x-layout>
+
+```bladehtml
+<x-layout>
+    <h1>Hello from the contact page</h1>
+</x-layout>
+```
+
+- Lưu ý nhỏ: Do ta đặt tên các file có đuôi blade.php nên ta chỉ cần viết là {{ slots }}, chứ nếu là file .php bình thường ta phải viết 
+là : 
+
+```php
+<?php echo slot ?>
 ```
 
 
